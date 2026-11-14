@@ -89,7 +89,7 @@
   // ---------- Router ----------
   const routes = {
     "": viewHome, "modul": viewModule, "quiz": viewQuiz, "erklaeren": viewOpen,
-    "karten": viewFlash, "labor": viewLab, "boss": viewBoss, "abzeichen": viewBadges,
+    "karten": viewFlash, "labor": viewLab, "boss": viewBoss, "abzeichen": viewBadges, "datenschutz": viewPrivacy,
   };
   function route() {
     const [, name = "", arg] = location.hash.replace(/^#/, "").split("/");
@@ -147,10 +147,10 @@
         <h1>Willkommen bei Zell-Quest</h1>
         <p>Trainiere Zellbiologie, Biomembranen, Diffusion und Osmose. Sammle XP, steige Level auf, schalte Abzeichen frei und besiege am Ende den Abschluss-Boss.</p>
         <form id="nameForm" class="row">
-          <input id="nameIn" maxlength="20" placeholder="Dein Vorname oder Spitzname" autocomplete="off" required>
+          <input id="nameIn" maxlength="20" placeholder="Dein Spitzname" autocomplete="off" required>
           <button class="btn primary">Los geht’s</button>
         </form>
-        <p class="muted small">Dein Name und Fortschritt bleiben nur auf diesem Gerät gespeichert.</p>
+        <p class="muted small">Spitzname und Fortschritt bleiben nur auf diesem Gerät gespeichert. <a class="link" href="#/datenschutz">Datenschutz</a></p>
       </section>`;
     $("#nameForm").onsubmit = e => { e.preventDefault(); S.name = $("#nameIn").value.trim().slice(0, 20); save(); route(); };
     $("#nameIn").focus();
@@ -557,6 +557,21 @@
       if (b.dataset.sure) { localStorage.removeItem(KEY); S = load(); location.hash = "#/"; route(); }
       else { b.dataset.sure = 1; b.textContent = "Wirklich alles löschen? Nochmal klicken"; }
     };
+  }
+
+  // ---------- Datenschutz ----------
+  function viewPrivacy() {
+    app.innerHTML = `<a class="back" href="#/">← Übersicht</a>
+      <section class="card prose"><h1>Datenschutz</h1>
+        <p>Zell-Quest ist ein freiwilliges Lernangebot für den Biologieunterricht der Jahrgangsstufe 11.</p>
+        <h3>Was die App speichert</h3>
+        <p>Dein Spitzname, deine Punkte, Level und Abzeichen werden nur im Speicher deines Browsers auf diesem Gerät abgelegt (localStorage). Diese Daten werden nicht übertragen. Weder deine Lehrkraft noch sonst jemand kann sie sehen. Es gibt keine Anmeldung, keine Cookies, keine Werbung und keine Statistik- oder Tracking-Dienste. Die App lädt keine Inhalte von fremden Servern nach.</p>
+        <p>Du kannst die gespeicherten Daten jederzeit löschen: unter „Abzeichen“ mit „Fortschritt zurücksetzen“ oder indem du die Websitedaten in deinem Browser löschst.</p>
+        <h3>Hosting</h3>
+        <p>Die Seite wird über GitHub Pages bereitgestellt (GitHub, Inc., USA). Wie bei jeder Website wird beim Aufruf deine IP-Adresse an den Server übertragen. GitHub speichert IP-Adressen nach eigenen Angaben zu Sicherheitszwecken. Darauf hat die Lehrkraft keinen Zugriff. Näheres steht in der <a class="link" href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerklärung von GitHub</a>.</p>
+        <h3>Tipp</h3>
+        <p>Gib als Namen am besten einen Spitznamen ein, keinen vollständigen Namen.</p>
+      </section>`;
   }
 
   route();

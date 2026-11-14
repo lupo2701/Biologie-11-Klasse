@@ -243,3 +243,7 @@ figcaption { font-weight: 700; text-align: center; margin-top: 4px; }
   .tile { padding: 14px 10px; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+.link, .foot a { color: var(--green-d); text-decoration: underline; }
+.prose h3 { margin-top: 18px; }
+.prose p { max-width: 680px; }
